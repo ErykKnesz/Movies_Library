@@ -1,4 +1,5 @@
 import random
+from datetime import date
 
 
 class Movie:
@@ -71,8 +72,6 @@ series3 = Series(
     season = 1
 )
 
-library = [film1, series1, film2, series2, film3, series3]
-
 
 def get_movies():
     movies = []
@@ -139,7 +138,11 @@ def top_titles(picture_number, content_type='all'):
         return top_titles[:picture_number]
 
 
-top_titles = top_titles(2, 'Series')
-
-for title in top_titles:
-    print(title)
+if __name__ == '__main__':
+    print("Library of motion picture")
+    library = [film1, series1, film2, series2, film3, series3]
+    generate_views()
+    top_titles = top_titles(3)
+    print(f"The most popular films and series as of {date.today():%d.%m.%Y}:")
+    for title in top_titles:
+        print(title)
