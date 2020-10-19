@@ -72,12 +72,14 @@ series3 = Series(
     season = 1
 )
 
+library = [film1, series1, film2, series2, film3, series3]
 
 def get_movies():
     movies = []
     for picture in library:
-        if isinstance(picture, Movie):
-            movies.append(picture)
+        if isinstance(picture, Series):
+            continue
+        movies.append(picture)
     return sorted(movies, key=lambda movie: movie.title)
 
 
@@ -106,18 +108,19 @@ def generate_views_x_10():
         generate_views()
 
 
-def top_titles(picture_number, content_type='all'):
+def top_titles(pictures_number, content_type='all'):
     if content_type == 'Movies':
         movies = []
         for picture in library:
-            if isinstance(picture, Movie):
-                movies.append(picture)
+            if isinstance(picture, Series):
+                continue
+            movies.append(picture)
         top_titles = sorted(
             movies,
             key=lambda movie: movie.plays,
             reverse=True
         )
-        return top_titles[:picture_number]
+        return top_titles[:pictures_number]
     elif content_type == 'Series':
         series = []
         for picture in library:
@@ -128,21 +131,19 @@ def top_titles(picture_number, content_type='all'):
             key=lambda series: series.plays,
             reverse=True
         )
-        return top_titles[:picture_number]
+        return top_titles[:pictures_number]
     else:
         top_titles = sorted(
             library,
             key=lambda picture: picture.plays,
             reverse=True
         )
-        return top_titles[:picture_number]
+        return top_titles[:pictures_number]
 
 
 if __name__ == '__main__':
-    print("Library of motion picture")
-    library = [film1, series1, film2, series2, film3, series3]
+    print("Library of films and TV shows")
     generate_views()
-    top_titles = top_titles(3)
     print(f"The most popular films and series as of {date.today():%d.%m.%Y}:")
-    for title in top_titles:
+    for title in top_titles(3):
         print(title)
